@@ -2,7 +2,8 @@
 #include <iostream>
 #include <chrono>
 
-waiter::waiter(order_queue& q, int id) : queue(q), waiter_id(id) {}
+waiter::waiter(order_queue& q, stats& s, int id)
+    : queue(q), system_stats(s), waiter_id(id) {}
 
 void waiter::run() {
     int order_counter = 0;
