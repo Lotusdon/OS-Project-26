@@ -32,7 +32,7 @@ void kitchen_manager::run() {
             std::cout << "manager: decreasing stations to " << max_stations.load() << "\n";
         }
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+std::this_thread::sleep_for(std::chrono::seconds(2));
     }
 }
 
