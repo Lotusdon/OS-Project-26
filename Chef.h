@@ -2,6 +2,7 @@
 #define CHEF_H
 
 #include "OrderQueue.h"
+#include "Dashboard.h"
 #include <thread>
 #include <atomic>
 #include <semaphore>
