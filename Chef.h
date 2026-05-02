@@ -19,6 +19,6 @@ public:
     chef(order_queue& q, stats& s, int id);
 
     void run();
-};;
+};
 
 #endif
