@@ -27,6 +27,6 @@ void waiter::run() {
 
         std::cout << "waiter " << waiter_id << " created order " << o.order_id << "\n";
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+std::this_thread::sleep_for(std::chrono::seconds(2));
     }
 }
