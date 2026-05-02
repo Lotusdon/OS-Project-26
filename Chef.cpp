@@ -13,6 +13,8 @@ void chef::run() {
 
         order o = queue.wait_and_pop();
 
+        if (!running) break;
+
         o.status = order_status::in_progress;
 
         std::cout << "chef " << chef_id << " started order " << o.order_id << "\n";
@@ -20,6 +22,8 @@ void chef::run() {
         std::this_thread::sleep_for(std::chrono::milliseconds(1000 + (o.order_id % 500)));
 
         o.status = order_status::done;
+
+        system_stats.completed_orders++;
 
         std::cout << "chef " << chef_id << " finished order " << o.order_id << "\n";
 
