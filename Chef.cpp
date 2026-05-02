@@ -19,7 +19,7 @@ void chef::run() {
 
         std::cout << "chef " << chef_id << " started order " << o.order_id << "\n";
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000 + (o.order_id % 500)));
+std::this_thread::sleep_for(std::chrono::seconds(2 + (o.order_id % 2)));
 
         o.status = order_status::done;
 
