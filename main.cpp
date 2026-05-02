@@ -26,13 +26,23 @@ int main() {
     std::vector<std::thread> chef_threads;
 
     for (int i = 1; i <= 3; i++) {
-        waiter w(queue, i);
-        waiter_threads.emplace_back(&waiter::run, w);
+
+        waiter_threads.emplace_back([&queue, &system_stats, i]() {
+
+        waiter w(queue, system_stats, i);
+        w.run();
+
+        }
     }
 
     for (int i = 1; i <= 5; i++) {
-        chef c(queue, i);
-        chef_threads.emplace_back(&chef::run, c);
+
+        chef_threads.emplace_back([&queue, &system_stats, i]() {
+
+        chef c(queue, system_stats, i);
+        c.run();
+
+        }
     }
 
     std::thread manager_thread(&kitchen_manager::run, &manager);
