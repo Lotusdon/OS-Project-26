@@ -57,21 +57,25 @@ public:
     }
 
     void cancel_order(int id) {
+
         std::lock_guard<std::mutex> lock(mtx);
 
         std::vector<order> temp;
+
         while (!pq.empty()) {
+
             order o = pq.top();
             pq.pop();
+
             if (o.order_id != id) {
-                temp.push_back(o);
+            temp.push_back(o);
             }
         }
 
-        for (auto& o : temp) {
-            pq.push(o);
-        }
+    for (auto& o : temp) {
+        pq.push(o);
     }
+}
 };
 
 #endif
