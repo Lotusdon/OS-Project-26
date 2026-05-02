@@ -3,6 +3,8 @@
 #include <chrono>
 #include <thread>
 
+extern std::counting_semaphore<10> stations;
+
 kitchen_manager::kitchen_manager(order_queue& q)
     : queue(q), max_stations(3), active_adjustment(0) {}
 
@@ -14,11 +16,19 @@ void kitchen_manager::run() {
         int current = max_stations.load();
 
         if (qsize > 10 && current < 6) {
+        
             max_stations++;
+        
+            stations.release();
+        
             std::cout << "manager: increasing stations to " << max_stations.load() << "\n";
         }
         else if (qsize < 3 && current > 2) {
+        
             max_stations--;
+        
+            stations.acquire();
+        
             std::cout << "manager: decreasing stations to " << max_stations.load() << "\n";
         }
 
