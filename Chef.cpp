@@ -3,7 +3,8 @@
 #include <chrono>
 #include <thread>
 
-chef::chef(order_queue& q, int id) : queue(q), chef_id(id) {}
+chef::chef(order_queue& q, stats& s, int id)
+    : queue(q), system_stats(s), chef_id(id) {}
 
 void chef::run() {
     while (running) {
