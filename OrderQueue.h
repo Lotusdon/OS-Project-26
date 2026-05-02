@@ -5,6 +5,9 @@
 #include <queue>
 #include <mutex>
 #include <condition_variable>
+#include <atomic>
+
+extern std::atomic<bool> running;
 
 struct order_compare {
     bool operator()(const order& a, const order& b) const {
@@ -20,7 +23,6 @@ private:
     std::priority_queue<order, std::vector<order>, order_compare> pq;
     std::mutex mtx;
     std::condition_variable cv;
-
 public:
     void push(const order& o) {
         std::lock_guard<std::mutex> lock(mtx);
