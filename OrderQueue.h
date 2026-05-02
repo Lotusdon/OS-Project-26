@@ -38,11 +38,18 @@ public:
     }
 
     order wait_and_pop() {
+    
         std::unique_lock<std::mutex> lock(mtx);
-        cv.wait(lock, [&] { return !pq.empty(); });
-
+    
+        cv.wait(lock, [&] { return !pq.empty() || !running; });
+    
+        if (!running && pq.empty()) {
+            return order{};
+        }
+    
         order result = pq.top();
         pq.pop();
+    
         return result;
     }
 
